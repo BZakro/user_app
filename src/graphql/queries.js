@@ -1,7 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getUser = /* GraphQL */ `
+import { gql } from "@apollo/react-hooks";
+
+export const getUser = /* GraphQL */ gql`
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id

@@ -28,6 +28,7 @@ const Login = () => {
         }
       });
       setIsSignedUp(true)
+      setUserSub(userSub)
       const userToSave = {username, email, id: userSub}
       await API.graphql({ query: createUser, variables: { input: userToSave } });
     } catch (error) {
@@ -40,17 +41,18 @@ const Login = () => {
     try {
       const res = await Auth.confirmSignUp(username, confirmationCode);
       console.log(res);
-      history.push(`/profile/}`)
+      history.push(`/profile/${userSub}`)
     } catch (error) {
       console.log('error confirming sign up', error);
     }
   }
-
+  
   const login = async () => {
     const { username, password } = formState
     try {
       const user = await Auth.signIn(username, password);
       console.log(user);
+      history.push(`/profile/${user.attributes.sub}}`)
     } catch (error) {
       console.log('error signing in', error);
     }

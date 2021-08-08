@@ -15,7 +15,7 @@ export const getUser = /* GraphQL */ gql`
     }
   }
 `;
-export const listUsers = /* GraphQL */ `
+export const listUsers = /* GraphQL */ gql`
   query ListUsers(
     $filter: ModelUserFilterInput
     $limit: Int

@@ -9,7 +9,7 @@ import AppSync from './aws-exports';
 import { Auth } from 'aws-amplify';
 
 // console.log(AppSync.graphqlEndpoint,AppSync["aws_project_region"], AppSync.authenticationType);
-const client = new AWSAppSyncClient(
+export const client = new AWSAppSyncClient(
   {
     url: AppSync['aws_appsync_graphqlEndpoint'],
     disableOffline: false,
@@ -36,15 +36,14 @@ const client = new AWSAppSyncClient(
     // cache
   }
 );
-console.log(client);
 
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
+  // <ApolloProvider client={client}>
     <React.StrictMode>
       <App />
-    </React.StrictMode>
-  </ApolloProvider>,
+    </React.StrictMode>,
+  // </ApolloProvider>,
   document.getElementById('root')
 );
 

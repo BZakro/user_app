@@ -52,7 +52,7 @@ const Login = () => {
     try {
       const user = await Auth.signIn(username, password);
       console.log(user);
-      history.push(`/profile/${user.attributes.sub}}`)
+      history.push(`/profile/${user.attributes.sub}`)
     } catch (error) {
       console.log('error signing in', error);
     }

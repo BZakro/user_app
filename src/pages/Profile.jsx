@@ -1,27 +1,27 @@
-import { useQuery } from '@apollo/react-hooks';
 import { API, Auth } from 'aws-amplify';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getUser } from '../graphql/queries';
+import { client } from '..';
+import { getUser, listUsers } from '../graphql/queries';
 
 export function Profile() {
 
     const { id } = useParams()
     const [user, setUser] = useState(null)
-    // const { data, loading, error } = useQuery(getUser, { variables: { id } })
     
     useEffect(async () => {
-        const res = await Auth.currentSession()
-        console.log(res);
-        console.log(id);
         try {
-            //   const user = await API.graphql({ query: getUser, variables: { id }});
-            //   setUser(user)
-            // console.log(data);
+              const res = await client.query({ query: getUser, variables: { id }});
+              setUser(res.data.getUser)
         } catch (err) {
             console.log(err);
         }
     }, [])
+
+    const onLogout = async () => {
+        const res = await Auth.signOut()
+        console.log(res);
+    }
 
 
     return (
@@ -33,6 +33,7 @@ export function Profile() {
                 <h3>Loading</h3>
             }
             {/* <NavLink className="link-btn" to="/">Go Back</NavLink> */}
+            <button onClick={onLogout}>Logout</button>
         </section>
     )
 }

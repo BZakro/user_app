@@ -20,8 +20,8 @@ const Login = () => {
     const { username, password, email } = formState
 
     try {
-      const {user, userSub} = await Auth.signUp({
-        username: username,
+      const { userSub } = await Auth.signUp({
+        username,
         password,
         attributes: {
           email,
@@ -29,30 +29,36 @@ const Login = () => {
       });
       setIsSignedUp(true)
       setUserSub(userSub)
-      const userToSave = {username, email, id: userSub}
-      await API.graphql({ query: createUser, variables: { input: userToSave } });
+      try {
+        
+      } catch (error) {
+        console.log('error signing up:', error);
+      }
     } catch (error) {
       console.log('error signing up:', error);
     }
   }
-
+  
   const confirmSignUp = async () => {
-    const { username, confirmationCode } = formState
+    const { username, confirmationCode, email } = formState
     try {
       const res = await Auth.confirmSignUp(username, confirmationCode);
       console.log(res);
+      const userSub = await login(true)
+      const userToSave = { username, email, id: userSub }
+      await API.graphql({ query: createUser, variables: { input: userToSave } });
       history.push(`/profile/${userSub}`)
     } catch (error) {
       console.log('error confirming sign up', error);
     }
   }
-  
-  const login = async () => {
+
+  const login = async (fisrtLogin = false) => {
     const { username, password } = formState
     try {
       const user = await Auth.signIn(username, password);
       console.log(user);
-      history.push(`/profile/${user.attributes.sub}`)
+      return fisrtLogin ? user.attributes.sub : history.push(`/profile/${user.attributes.sub}`)
     } catch (error) {
       console.log('error signing in', error);
     }
@@ -143,6 +149,7 @@ const Login = () => {
             })
           } />
           <button onClick={confirmSignUp}>Confirm</button>
+          <span onClick={Auth.resendSignUp}>Re-send code</span>
         </div>
       }
     </main>

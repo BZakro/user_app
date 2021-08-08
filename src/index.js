@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AWSAppSyncClient from 'aws-appsync'
-import { ApolloProvider } from '@apollo/react-hooks';
 import AppSync from './aws-exports';
 import { Auth } from 'aws-amplify';
 

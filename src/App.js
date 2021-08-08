@@ -5,7 +5,6 @@ import awsconfig from './aws-exports';
 import { Route, HashRouter as Router, Switch } from 'react-router-dom';
 import { Profile } from './pages/Profile';
 
-
 Amplify.configure(awsconfig);
 
 function App() {
@@ -14,8 +13,8 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/profile/:id" component={Profile}/>
-          <Route path="/login" component={Login}/>
+          <Route path="/profile/:id" component={Profile} />
+          <Route path="/login" component={Login} />
           {/* <Route path="/" component={Login}/> */}
         </Switch>
       </Router>
